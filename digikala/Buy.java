@@ -1,10 +1,3 @@
-/*
- * buy class:
- * date;
- * User object;
- * Goods object;
- * quantity;
- */
 public class Buy {
     private String date;
     private User user;

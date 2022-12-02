@@ -2,28 +2,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * 1. The ability to register a user with a username and password
- * 2. Ability to register the seller with username and password
- * 3. The ability to log in as a user/seller
- * 4. The ability to exit the account without closing the program (logout)
- * 5. Unique menu design for each user role (user/seller)
- * 6. As a user:
- * a. Initially, he has an empty shopping cart
- * b. Can add/remove any number of products to the shopping cart
- * c. See your shopping cart
- * d. Charge your account
- * e. See your account information
- * f. Search for a product by product name or code
- * g. See the list of goods
- * h. Clear his shopping cart (that is, buy all the goods in his shopping cart)
- * i. view the history of your purchases *
- * 7. As a seller:
- * a. Can add/delete goods
- * b. See the list of goods
- * c. Change the information of a specific product
- * d. View the number of times each product has been purchased *
- */
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
@@ -62,7 +40,7 @@ public class Main {
         }
     }
 
-    public static User registerUser() {
+    public static User register() {
         Scanner scanner = new Scanner(System.in);
         String position;
         String username;
@@ -162,4 +140,131 @@ public class Main {
         return user;
 
     }
-}
+    /*
+     * login menu
+     */
+    public static void HomeMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1- login");
+        System.out.println("2- register");
+        System.out.println("3- exit");
+        String input = scanner.nextLine();
+        if (input.equals("1")) {
+            // login();
+        } else if (input.equals("2")) {
+            register();
+        } else if (input.equals("3")) {
+            System.exit(0);
+        } else {
+            System.out.println("invalid input");
+        }
+    }
+    /*
+     * login menu
+     * login as user or seller
+     */
+    public static void loginMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1- login as user");
+        System.out.println("2- login as seller");
+        System.out.println("3- exit");
+        String input = scanner.nextLine();
+        if (input.equals("1")) {
+            // login();
+        } else if (input.equals("2")) {
+            // login();
+        } else if (input.equals("3")) {
+            System.exit(0);
+        } else {
+            System.out.println("invalid input");
+        }
+        /*
+         * signup menu
+         * signup as user or seller
+         */
+    }
+    /*
+     * user menu
+     *     1- Buy
+     *     2- Cart
+     *    3- charge account
+     * 4- account information
+        -5 search using code
+        -6 Goods list
+        -7 Order
+        8- order history
+     */
+    public static void userMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1- Buy");
+        System.out.println("2- Cart");
+        System.out.println("3- charge account");
+        System.out.println("4- account information");
+        System.out.println("5- search using code");
+        System.out.println("6- Goods list");
+        System.out.println("7- Order");
+        System.out.println("8- order history");
+        System.out.println("9- logout");
+        String input = scanner.nextLine();
+        if (input.equals("1")) {
+            // login();
+        } else if (input.equals("2")) {
+            // login();
+        } else if (input.equals("3")) {
+            // login();
+        } else if (input.equals("4")) {
+            // login();
+        } else if (input.equals("5")) {
+            // login();
+        } else if (input.equals("6")) {
+            // login();
+        } else if (input.equals("7")) {
+            // login();
+        } else if (input.equals("8")) {
+            // login();
+        } else if (input.equals("9")) {
+            //
+        } else {
+            System.out.println("invalid input");
+        }
+    }
+    /*
+     * seller menu
+     * 1- add goods
+     * 2- edit goods
+     * 3- delete goods
+     * 4- goods list
+     * 6- order history
+     * 7- account information
+     * 8- logout
+     */
+    public static void sellerMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1- add goods");
+        System.out.println("2- edit goods");
+        System.out.println("3- delete goods");
+        System.out.println("4- goods list");
+        System.out.println("5- order history");
+        System.out.println("6- account information");
+        System.out.println("7- logout");
+        String input = scanner.nextLine();
+        if (input.equals("1")) {
+            // login();
+        } else if (input.equals("2")) {
+            // login();
+        } else if (input.equals("3")) {
+            // login();
+        } else if (input.equals("4")) {
+            // login();
+        } else if (input.equals("5")) {
+            // login();
+        } else if (input.equals("6")) {
+            // login();
+        } else if (input.equals("7")) {
+            // login();
+        } else if (input.equals("8")) {
+            // login();
+        } else {
+            System.out.println("invalid input");
+        }
+    }
