@@ -7,7 +7,7 @@ public class Main {
         List<User> users = new ArrayList<>();
         List<Goods> goods = new ArrayList<>();
         List<Buy> buys = new ArrayList<>();
-
+        
     }
 
     public static boolean checkPassword(String password) {
