@@ -7,7 +7,7 @@ public class Main {
         List<User> users = new ArrayList<>();
         List<Goods> goods = new ArrayList<>();
         List<Buy> buys = new ArrayList<>();
-        
+
     }
 
     public static boolean checkPassword(String password) {
@@ -140,6 +140,7 @@ public class Main {
         return user;
 
     }
+
     /*
      * login menu
      */
@@ -159,6 +160,7 @@ public class Main {
             System.out.println("invalid input");
         }
     }
+
     /*
      * login menu
      * login as user or seller
@@ -183,16 +185,17 @@ public class Main {
          * signup as user or seller
          */
     }
+
     /*
      * user menu
-     *     1- Buy
-     *     2- Cart
-     *    3- charge account
+     * 1- Buy
+     * 2- Cart
+     * 3- charge account
      * 4- account information
-        -5 search using code
-        -6 Goods list
-        -7 Order
-        8- order history
+     * -5 search using code
+     * -6 Goods list
+     * -7 Order
+     * 8- order history
      */
     public static void userMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -228,6 +231,7 @@ public class Main {
             System.out.println("invalid input");
         }
     }
+
     /*
      * seller menu
      * 1- add goods
@@ -268,3 +272,4 @@ public class Main {
             System.out.println("invalid input");
         }
     }
+}
