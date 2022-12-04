@@ -1,8 +1,3 @@
-/*
- * Payment class:
- * charge: double
- * with gettter and setter
- */
 public class Payment {
     private double charge;
 

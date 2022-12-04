@@ -4,6 +4,7 @@ public class Goods {
     private String expirDate;
     private double price;
     private int quantity;
+    private int owner_id;
 
     public Goods(int id, String name, String expirDate, double price, int quantity) {
         this.id = id;
@@ -13,11 +14,11 @@ public class Goods {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public int getCode() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setCode(int id) {
         this.id = id;
     }
 
@@ -52,9 +53,55 @@ public class Goods {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public void setOwner(int owner_id) {
+        this.owner_id = owner_id;
+    }
+    public int getOwner() {
+        return owner_id;
+    }
 
     @Override
     public String toString() {
         return "Goods{" + "id=" + id + ", name=" + name + ", expirDate=" + expirDate + ", price=" + price + ", quantity=" + quantity + '}';
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+/*****************************
+ * 
+ * 
+ * 
+
+{
+    "id": 1,
+    "name": "Milk",
+    "expirDate": "2019-12-12",
+    "price": 2.5,
+    "quantity": 10
+}
+{
+    user
+}}
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+ */

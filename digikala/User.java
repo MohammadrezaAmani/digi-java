@@ -1,4 +1,5 @@
 public class User {
+    private int id;
     private String position;
     private String username;
     private String password;
@@ -13,6 +14,9 @@ public class User {
 
     public String getPosition() {
         return position;
+    }
+    public int getId() {
+        return id;
     }
 
     public void setPosition(String position) {
