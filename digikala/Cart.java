@@ -5,10 +5,12 @@ public class Cart {
     private int owner_id;
     private List<Goods> goodsList = new ArrayList<>();
     private double totalPrice;
+
     public Cart(int owner_id, Goods goods) {
         this.owner_id = owner_id;
         this.goodsList.add(goods);
     }
+
     public void set_owner_id(int owner_id) {
         this.owner_id = owner_id;
     }

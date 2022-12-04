@@ -15,6 +15,7 @@ public class User {
     public String getPosition() {
         return position;
     }
+
     public int getId() {
         return id;
     }
@@ -58,7 +59,8 @@ public class User {
                 hasCapital = true;
             } else if (Character.isLowerCase(password.charAt(i))) {
                 hasSmall = true;
-            } else if (password.charAt(i) == '*' || password.charAt(i) == '%' || password.charAt(i) == '$' || password.charAt(i) == '#' || password.charAt(i) == '@' || password.charAt(i) == '!') {
+            } else if (password.charAt(i) == '*' || password.charAt(i) == '%' || password.charAt(i) == '$'
+                    || password.charAt(i) == '#' || password.charAt(i) == '@' || password.charAt(i) == '!') {
                 hasSpecial = true;
             }
         }
@@ -66,7 +68,8 @@ public class User {
             this.password = password;
             return true;
         } else {
-            System.out.println("Password must contain at least one number and Capital and small letter and * % $ # @ ! characters");
+            System.out.println(
+                    "Password must contain at least one number and Capital and small letter and * % $ # @ ! characters");
             return false;
         }
 

@@ -334,7 +334,7 @@ public class Main {
             System.out.println("invalid input");
         }
     }
-    
+
     public static void addGoods(List<User> users, List<Goods> goods) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the code of the product you want to add: ");
