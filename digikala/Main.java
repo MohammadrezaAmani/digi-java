@@ -1,49 +1,64 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         List<Goods> goods = new ArrayList<>();
-        int currentID = 0;
-        currentID += currentID + 1;
-        HomeMenu(users, goods);
+        List<User> currentUser = new ArrayList<>();
+        HomeMenu(users, goods, currentUser);
 
     }
 
-    public static boolean checkPassword(String password) {
-        if (password.length() < 8) {
-            System.out.println("Password must have at least 8 characters");
-            return false;
+    public static void HomeMenu(List<User> users, List<Goods> goods, List<User> currentUser) {
+        Scanner scanner = new Scanner(System.in);
+        currentUser.clear();
+        System.out.println("1- login");
+        System.out.println("2- register");
+        System.out.println("3- exit");
+        String input = scanner.nextLine();
+        if (input.equals("1")) {
+            login(users, goods, currentUser);
+        } else if (input.equals("2")) {
+            register(users, goods, currentUser);
+        } else if (input.equals("3")) {
+            System.exit(0);
+        } else {
+            System.out.println("invalid input");
         }
-        boolean hasNumber = false;
-        boolean hasCapital = false;
-        boolean hasSmall = false;
-        boolean hasSpecial = false;
-        for (int i = 0; i < password.length(); i++) {
-            if (Character.isDigit(password.charAt(i))) {
-                hasNumber = true;
-            } else if (Character.isUpperCase(password.charAt(i))) {
-                hasCapital = true;
-            } else if (Character.isLowerCase(password.charAt(i))) {
-                hasSmall = true;
-            } else if (password.charAt(i) == '*' || password.charAt(i) == '%' || password.charAt(i) == '$'
-                    || password.charAt(i) == '#' || password.charAt(i) == '@' || password.charAt(i) == '!') {
-                hasSpecial = true;
+        scanner.close();
+    }
+
+    public static void login(List<User> users, List<Goods> goods, List<User> currentUser) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = scanner.nextLine();
+        System.out.println("Enter your password: ");
+        String password = scanner.nextLine();
+        scanner.close();
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                System.out.println("login successfully");
+                if (user.getPosition().equals("user")) {
+                    currentUser.clear();
+                    currentUser.add(user);
+                    userMenu(users, goods, currentUser);
+                } else {
+                    currentUser.clear();
+                    currentUser.add(user);
+                    sellerMenu(users, goods, currentUser);
+                }
             }
         }
-        if (hasNumber && hasCapital && hasSmall && hasSpecial) {
-            return true;
-        } else {
-            System.out.println(
-                    "Password must contain at least one number and Capital and small letter and * % $ # @ ! characters");
-            return false;
-        }
+        System.out.println("username or password is not correct");
     }
 
-    public static void register(List<User> users, List<Goods> goods) {
+    public static void register(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
+        // id = 6 random number
+        int id = new Random().nextInt(1000000);
         String position;
         String username;
         String password;
@@ -133,6 +148,7 @@ public class Main {
         scanner.close();
         // now create user
         User user = new User();
+        user.setId(id);
         user.setPosition(position);
         user.setUsername(username);
         user.setPassword(password);
@@ -141,90 +157,83 @@ public class Main {
         user.setPhone(phoneNumber);
         System.out.println("user created successfully");
         users.add(user);
+        // remove everything from current user
+        currentUser.clear();
+        // add current user
+        currentUser.add(user);
         if (position.equals("seller")) {
-            sellerMenu(users, goods);
+            sellerMenu(users, goods, currentUser);
         } else {
-            userMenu(users, goods);
+            userMenu(users, goods, currentUser);
         }
 
     }
 
-    public static void HomeMenu(List<User> users, List<Goods> goods) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("1- login");
-        System.out.println("2- register");
-        System.out.println("3- exit");
-        String input = scanner.nextLine();
-        scanner.close();
-        if (input.equals("1")) {
-            login(users, goods);
-        } else if (input.equals("2")) {
-            register(users, goods);
-        } else if (input.equals("3")) {
-            System.exit(0);
-        } else {
-            System.out.println("invalid input");
+    public static boolean checkPassword(String password) {
+        if (password.length() < 8) {
+            System.out.println("Password must have at least 8 characters");
+            return false;
         }
-    }
-
-    public static void login(List<User> users, List<Goods> goods) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your username: ");
-        String username = scanner.nextLine();
-        System.out.println("Enter your password: ");
-        String password = scanner.nextLine();
-        scanner.close();
-        for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                System.out.println("login successfully");
-                if (user.getPosition().equals("user")) {
-                    userMenu(users, goods);
-                } else {
-                    sellerMenu(users, goods);
-                }
+        boolean hasNumber = false;
+        boolean hasCapital = false;
+        boolean hasSmall = false;
+        boolean hasSpecial = false;
+        for (int i = 0; i < password.length(); i++) {
+            if (Character.isDigit(password.charAt(i))) {
+                hasNumber = true;
+            } else if (Character.isUpperCase(password.charAt(i))) {
+                hasCapital = true;
+            } else if (Character.isLowerCase(password.charAt(i))) {
+                hasSmall = true;
+            } else if (password.charAt(i) == '*' || password.charAt(i) == '%' || password.charAt(i) == '$'
+                    || password.charAt(i) == '#' || password.charAt(i) == '@' || password.charAt(i) == '!') {
+                hasSpecial = true;
             }
         }
-        System.out.println("username or password is not correct");
+        if (hasNumber && hasCapital && hasSmall && hasSpecial) {
+            return true;
+        } else {
+            System.out.println(
+                    "Password must contain at least one number and Capital and small letter and * % $ # @ ! characters");
+            return false;
+        }
     }
 
-    /*
-     * user menu
-     * 1- Buy
-     * 2- Cart
-     * 3- charge account
-     * 4- account information
-     * -5 search using code
-     * -6 Goods list
-     * -7 Order
-     * 8- order history
-     */
-    public static void Buy(List<User> users, List<Goods> goods) {
+    public static void Buy(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the code of the product you want to buy: ");
         int code = scanner.nextInt();
         scanner.close();
         for (User user : users) {
-            if (user.getPosition().equals("user")) {
+            if (user.getId() == currentUser.get(0).getId()) {
                 for (Goods good : goods) {
                     if (good.getCode() == code) {
-                        Cart cart1 = user.getCart();
-                        cart1.add(good);
-                        System.out.println("product added to cart successfully");
-                        return;
+                        if (good.getQuantity() > 0) {
+                            good.setQuantity(good.getQuantity() - 1);
+                            Cart cart = user.getCart();
+                            cart.add(good);
+                            user.setCart(cart);
+                            System.out.println("product bought successfully");
+                            userMenu(users, goods, currentUser);
+                            return;
+                        } else {
+                            System.out.println("product is not available");
+                            userMenu(users, goods, currentUser);
+                            return;
+                        }
                     }
                 }
             }
         }
-        System.out.println("product not found");
     }
 
-    public static void chargeAccount(List<User> users) {
+    public static void chargeAccount(List<User> users, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Home many money do you want to charge your account: ");
         int money = scanner.nextInt();
         scanner.close();
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(0).getId()) {
                 Payment payment = user.getPayment();
                 payment.setCharge(payment.getCharge() + money);
                 System.out.println("your account charged successfully");
@@ -233,18 +242,18 @@ public class Main {
         }
     }
 
-    public static void accountInformation(List<User> users) {
+    public static void accountInformation(List<User> users, List<User> currentUser) {
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(9).getId()){
                 System.out.println(user);
                 return;
             }
         }
     }
 
-    public static void cart(List<User> users) {
+    public static void cart(List<User> users, List<User> currentUser) {
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(9).getId()){
                 Cart cart1 = user.getCart();
                 System.out.println(cart1);
                 return;
@@ -272,9 +281,9 @@ public class Main {
         }
     }
 
-    public static void order(List<User> users) {
+    public static void order(List<User> users, List<User> currentUser) {
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(9).getId()){
                 Cart cart1 = user.getCart();
                 Payment payment = user.getPayment();
                 if (payment.getCharge() >= cart1.getTotalPrice()) {
@@ -289,9 +298,9 @@ public class Main {
         }
     }
 
-    public static void orderHistory(List<User> users) {
+    public static void orderHistory(List<User> users, List<User> currentUser) {
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(9).getId()){
                 Cart cart1 = user.getCart();
                 System.out.println(cart1);
                 return;
@@ -299,7 +308,7 @@ public class Main {
         }
     }
 
-    public static void userMenu(List<User> users, List<Goods> goods) {
+    public static void userMenu(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1- Buy");
         System.out.println("2- Cart");
@@ -313,29 +322,29 @@ public class Main {
         String input = scanner.nextLine();
         scanner.close();
         if (input.equals("1")) {
-            Buy(users, goods);
+            Buy(users, goods, currentUser);
         } else if (input.equals("2")) {
-            cart(users);
+            cart(users, currentUser);
         } else if (input.equals("3")) {
-            chargeAccount(users);
+            chargeAccount(users, currentUser);
         } else if (input.equals("4")) {
-            accountInformation(users);
+            accountInformation(users, currentUser);
         } else if (input.equals("5")) {
             searchUsingCode(goods);
         } else if (input.equals("6")) {
             goodsList(goods);
         } else if (input.equals("7")) {
-            order(users);
+            order(users, currentUser);
         } else if (input.equals("8")) {
-            orderHistory(users);
+            orderHistory(users, currentUser);
         } else if (input.equals("9")) {
-            HomeMenu(users, goods);
+            HomeMenu(users, goods, currentUser);
         } else {
             System.out.println("invalid input");
         }
     }
 
-    public static void addGoods(List<User> users, List<Goods> goods) {
+    public static void addGoods(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the code of the product you want to add: ");
         int code = scanner.nextInt();
@@ -363,7 +372,7 @@ public class Main {
     }
 
     // for edit goods: seller must be the owner of the product
-    public static void editGoods(List<User> users, List<Goods> goods) {
+    public static void editGoods(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the code of the product you want to edit: ");
         int code = scanner.nextInt();
@@ -397,7 +406,7 @@ public class Main {
     }
 
     // for delete goods: seller must be the owner of the product
-    public static void deleteGoods(List<User> users, List<Goods> goods) {
+    public static void deleteGoods(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the code of the product you want to delete: ");
         int code = scanner.nextInt();
@@ -418,7 +427,7 @@ public class Main {
     }
 
     // for goods list: seller must be the owner of the product
-    public static void goodsListSeller(List<User> users, List<Goods> goods) {
+    public static void goodsListSeller(List<User> users, List<Goods> goods, List<User> currentUser) {
         for (Goods good : goods) {
             if (good.getOwner() == 0) {
                 System.out.println(good);
@@ -427,9 +436,9 @@ public class Main {
     }
 
     // for order history: seller must be the owner of the product
-    public static void orderHistorySeller(List<User> users, List<Goods> goods) {
+    public static void orderHistorySeller(List<User> users, List<Goods> goods, List<User> currentUser) {
         for (User user : users) {
-            if (user.getId() == 0) {
+            if (user.getId() == currentUser.get(9).getId()){
                 Cart cart1 = user.getCart();
                 System.out.println(cart1);
                 return;
@@ -437,7 +446,7 @@ public class Main {
         }
     }
 
-    public static void sellerMenu(List<User> users, List<Goods> goods) {
+    public static void sellerMenu(List<User> users, List<Goods> goods, List<User> currentUser) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1- add goods");
         System.out.println("2- edit goods");
@@ -449,21 +458,34 @@ public class Main {
         String input = scanner.nextLine();
         scanner.close();
         if (input.equals("1")) {
-            addGoods(users, goods);
+            addGoods(users, goods, currentUser);
         } else if (input.equals("2")) {
-            editGoods(users, goods);
+            editGoods(users, goods, currentUser);
         } else if (input.equals("3")) {
-            deleteGoods(users, goods);
+            deleteGoods(users, goods, currentUser);
         } else if (input.equals("4")) {
-            goodsListSeller(users, goods);
+            goodsListSeller(users, goods, currentUser);
         } else if (input.equals("5")) {
-            orderHistorySeller(users, goods);
+            orderHistorySeller(users, goods, currentUser);
         } else if (input.equals("6")) {
-            accountInformation(users);
+            accountInformation(users, currentUser);
         } else if (input.equals("7")) {
-            HomeMenu(users, goods);
+            HomeMenu(users, goods, currentUser);
         } else {
             System.out.println("invalid input");
+        }
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public static void pressKeyToContinue() {
+        System.out.println("Press any key to continue...");
+        try {
+            System.in.read();
+        } catch (Exception e) {
         }
     }
 }
