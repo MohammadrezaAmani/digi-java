@@ -1,4 +1,4 @@
-_Honestly This code is just a laugh and I'm not `Java` developer, its content might not be right in terms of design patterns and other programming aspects. Try not to use it._
+_Honestly, this code is just a joke written in 2020 and I am not a Java developer,Try not to use it..._
 
 ---
 
